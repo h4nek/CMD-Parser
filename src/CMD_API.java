@@ -1,13 +1,12 @@
 import options.HelpOption;
 import options.Option;
-import options.StringOption;
 
 import java.util.*;
-import java.util.function.Function;
 
 /**
  * The API for command line options/arguments parsing.
- * The predefined Option types are Integer, String, Boolean, Enum and Custom (useful for defining any other data type).
+ * The predefined Option types are Integer, String, Boolean, Enum. A custom option type can be created by extending the 
+ * Option class.
  * <br><br>
  * A reserved option -> help (-h, --help) is defined by default and prints the list of all defined options.
  *  We can overwrite it by supplying a different option that uses the same aliases to {@link #addOption}.
@@ -16,9 +15,9 @@ import java.util.function.Function;
  */
 public class CMD_API {
     /** A collection of all defined options, using their aliases as keys. */
-    private HashMap<String, Option> options;
+    private HashMap<String, Option<?>> options;
     private CMD_API cmdApi;
-    private List<Option> parsedOptions;
+    private List<Option<?>> parsedOptions;
 
     private CMD_API() {
         options = new HashMap<>();
@@ -62,57 +61,40 @@ public class CMD_API {
      */
     public void startApp() {
         Scanner sc = new Scanner(System.in);
-        boolean lastWasOption = false;  // if the previously read token was an option (an option argument might be valid)
-        Option option = null;  // stores the last read option
-        while (sc.hasNext()) {
+        Option<?> option = null;  // stores the last read option; nullified if the last read token was an argument
+        while (sc.hasNext()) {  // process all CMD options and their arguments
             String token = sc.next();   // we expect an option or an argument to the last option
             
             if (option == null) {   // we expect an option now
-                String optionString = optionExtract(token);
-                option = options.get(optionString);
-                if (option == null) {
-                    throw new IllegalArgumentException("The option \"" + optionString + "\" is not defined!");
-                }
+                option = getOption(token);
             }
-            
-            while (token.startsWith("-")) {
-                token = sc.next();
-                if (token.startsWith("-")) {    // the previous option had no argument
+            else {
+                if (token.startsWith("-")) {    // the last read option had no argument
                     option.evaluate(null);
+                    option = getOption(token);  // get the currently read option
                 }
                 else {  // the current token is an argument to the stored option
                     option.evaluate(token);
+                    option = null;  // nullify the option variable to signify that the next token has to be an Option
                 }
             }
         }
     }
 
     /**
-     * Extract the option string from the token, and raise any relevant exception.
-     * @param token the token holding the option string
-     * @return the option string (one of its aliases)
+     * Get the Option using the token, and raise any relevant exception.
+     * @param token the token holding the option string (one of its aliases)
+     * @return the associated Option
      */
-    private String optionExtract(String token) {
-        String option;
-        if (token.startsWith("--")) {   // long option
-            option = token.substring(2);
+    private Option<?> getOption(String token) {
+        if (!token.startsWith("-")) {   // not a valid option alias
+            throw new IllegalArgumentException("Expected a long option (preceded by \"--\") or short option (preceded" +
+                    " by \"-\"), but " + token + " was given.");
         }
-        else if (token.startsWith("-")) {   // short option
-            option = token.substring(1);
-            if (option.length() > 1) {
-                throw new IllegalArgumentException("A single character was expected for the short option, but " + 
-                        option + " was given.");
-            }
+        Option<?> option = options.get(token);
+        if (option == null) {
+            throw new IllegalArgumentException("The option \"" + token + "\" is not defined!");
         }
-        else {
-            throw new IllegalArgumentException("Expected a long option (preceded by \"--\") or short option (preceded " +
-                    "by \"-\"), but " + token + " was given.");
-        }
-
-        if (option.length() == 0) {
-            throw new IllegalArgumentException("At least one character expected, but an empty option was given.");
-        }
-        
         return option;
     }
 }
