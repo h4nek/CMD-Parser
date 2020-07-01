@@ -109,7 +109,7 @@ public abstract class Option<T> {
     }
 
     /**
-     * Evaluate the argument's conformity to all restrictions.
+     * Evaluate the argument's conformity to all restrictions. No restrictions by default.
      * @return {@code true} if the argument passes all restrictions, {@code false} if a restriction is violated
      */
     boolean restrictionsSatisfaction() {
