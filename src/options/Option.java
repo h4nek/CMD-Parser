@@ -116,6 +116,14 @@ public abstract class Option<T> {
         return true;
     }
 
+    /**
+     * A convenience method to raise an exception in the case of an invalid option argument.
+     */
+    final void invalidArgument() {
+        throw new IllegalArgumentException("The received argument for option (" + String.join(", ", aliases) + 
+                ") is invalid!");
+    }
+
     private void argumentsCheck() {
         // check the booleans
         if (parameterOptional && mandatory) {
