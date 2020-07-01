@@ -66,6 +66,10 @@ public abstract class Option<T> {
         return mandatory;
     }
 
+    public boolean isParameterOptional() {
+        return parameterOptional;
+    }
+
     /**
      * @return the option argument (parameter). If the option was not present, return the default value.
      */
@@ -74,18 +78,32 @@ public abstract class Option<T> {
     }
 
     /**
+     * Evaluate the option - execute any of its logic, check the parameter and parse it. Custom option logic should be 
+     * implemented in {@link #parse(String)}.
+     * @param parameter
+     */
+    public final void evaluate(String parameter) {
+        if (parameter == null && !parameterOptional) {
+            throw new IllegalArgumentException("The option (" + String.join(", ", aliases) + ") requires a " +
+                    "parameter.");
+        }
+        parse(parameter);
+        restrictionCheck();
+    }
+    
+    /**
      * Parse the CMD option parameter, converting it to the option type.
      * @param parameter the option parameter to be parsed; null if no parameter is supplied (valid in the case of an 
      *                  optional parameter)
      */
-    public abstract void parse(String parameter);
+    abstract void parse(String parameter);
 
     /**
      * Check if the current argument passes the defined restrictions. A violation of some restriction triggers an 
      * {@link IllegalArgumentException}. By default, no restrictions are assumed ({@link #restrictionsSatisfaction} has 
      * to be overridden).
      */
-    void restrictionCheck() {
+    private void restrictionCheck() {
         if (!restrictionsSatisfaction())
             throw new IllegalArgumentException("The argument " + argument + " doesn't conform to the option restrictions.");
     }
@@ -108,7 +126,7 @@ public abstract class Option<T> {
         for (String alias : aliases) {
             if (alias.startsWith("--")) {
                 if (alias.length() == 2) {  // empty string
-                    throw new IllegalArgumentException("One of the )long option) aliases is an empty string.");
+                    throw new IllegalArgumentException("One of the (long option) aliases is an empty string.");
                 }
             }
             else if (alias.startsWith("-")) {
