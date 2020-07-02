@@ -82,8 +82,7 @@ public class CMD_API {
         // check the mandatory property compliance
         for (Option<?> opt : options.values()) {
             if (opt.isMandatory() && !parsedOptions.contains(opt)) {
-                throw new IllegalArgumentException("A mandatory option (" + String.join(", ", opt.getAliases())
-                 + ") was not present in the CMD input.");
+                throw new IllegalArgumentException("A mandatory option " + opt + " was not present in the CMD input.");
             }
         }
     }

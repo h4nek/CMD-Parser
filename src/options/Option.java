@@ -84,8 +84,7 @@ public abstract class Option<T> {
      */
     public final void evaluate(String parameter) {
         if (parameter == null && !parameterOptional) {
-            throw new IllegalArgumentException("The option (" + String.join(", ", aliases) + ") requires a " +
-                    "parameter.");
+            throw new IllegalArgumentException("The option " + this + " requires a parameter.");
         }
         parse(parameter);
         restrictionCheck();
@@ -120,8 +119,7 @@ public abstract class Option<T> {
      * A convenience method to raise an exception in the case of an invalid option argument.
      */
     final void invalidArgument() {
-        throw new IllegalArgumentException("The received argument for option (" + String.join(", ", aliases) + 
-                ") is invalid!");
+        throw new IllegalArgumentException("The received argument for option " + this + " is invalid!");
     }
 
     private void argumentsCheck() {
@@ -148,5 +146,10 @@ public abstract class Option<T> {
                         "was given instead.");
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "(" + String.join(", ", aliases) + ")";
     }
 }
