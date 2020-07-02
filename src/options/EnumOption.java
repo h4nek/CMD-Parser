@@ -19,13 +19,13 @@ public class EnumOption<E extends Enum<E>> extends Option<Enum<E>>{
     }
 
     @Override
-    void parse(String parameter) {
+    Enum<E> parse(String parameter) {
 //        this.getClass().getGenericSuperclass()
 //        for (Enum<E> constant : argument.getClass().getEnumConstants()) {
 //            if (constant.toString().equals(parameter)) {
 //                argument = constant;
 //            }
 //        }
-        Enum.valueOf(enumType, parameter);
+        return Enum.valueOf(enumType, parameter);
     }
 }

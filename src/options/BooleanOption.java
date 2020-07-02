@@ -1,7 +1,5 @@
 package options;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,18 +41,16 @@ public class BooleanOption extends Option<Boolean> {
     }
 
     @Override
-    public void parse(String parameter) {
+    public Boolean parse(String parameter) {
         if (trueRepresentations.contains(parameter)) {
-            argument = true;
+            return true;
         }
         else if (falseRepresentations.contains(parameter)) {
-            argument = false;
+            return false;
         }
-        else if (parameter == null) {   // a call without argument
-            argument = true;
-        }
-        else {
+        else if (parameter != null) {
             invalidArgument();
         }
+        return true;    // a call without an argument
     }
 }

@@ -95,11 +95,6 @@ public class CMD_API {
                 throw new IllegalArgumentException("A mandatory option " + opt + " was not present in the CMD input.");
             }
         }
-        //DEBUG
-        System.out.println("Parsed args: ");
-        for (Option<?> opt : parsedOptions) {
-            System.out.println(opt.getArgument());
-        }
     }
 
     /**

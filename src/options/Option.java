@@ -80,13 +80,13 @@ public abstract class Option<T> {
     /**
      * Evaluate the option - execute any of its logic, check the parameter and parse it. Custom option logic should be 
      * implemented in {@link #parse(String)}.
-     * @param parameter
+     * @param parameter the parameter to be parsed
      */
     public final void evaluate(String parameter) {
         if (parameter == null && !parameterOptional) {
             throw new IllegalArgumentException("The option " + this + " requires a parameter.");
         }
-        parse(parameter);
+        argument = parse(parameter);
         restrictionCheck();
     }
     
@@ -94,8 +94,9 @@ public abstract class Option<T> {
      * Parse the CMD option parameter, converting it to the option type.
      * @param parameter the option parameter to be parsed; null if no parameter is supplied (valid in the case of an 
      *                  optional parameter)
+     * @return the parsed option argument
      */
-    abstract void parse(String parameter);
+    abstract T parse(String parameter);
 
     /**
      * Check if the current argument passes the defined restrictions. A violation of some restriction triggers an 

@@ -16,8 +16,8 @@ public class StringOption extends Option<String> {
     }
 
     @Override
-    public void parse(String parameter) {
-        argument = parameter;
+    public String parse(String parameter) {
+        return parameter;
     }
 
 }

@@ -30,12 +30,13 @@ public class HelpOption extends StringOption {
     }
 
     @Override
-    public void parse(String parameter) {
+    public String parse(String parameter) {
         if (parameter != null) {
             throw new IllegalArgumentException("The help option doesn't accept a parameter!");
         }
         for (Option<?> option : options) {
             System.out.println(option.toString() + "\t" + option.getDescription());
         }
+        return null;
     }
 }

@@ -36,8 +36,8 @@ public class IntegerOption extends Option<Integer> {
     }
 
     @Override
-    public void parse(String parameter) {
-        argument = Integer.valueOf(parameter);
+    public Integer parse(String parameter) {
+        return Integer.valueOf(parameter);
     }
 
     @Override
