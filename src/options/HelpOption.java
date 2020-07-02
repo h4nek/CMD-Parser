@@ -35,8 +35,9 @@ public class HelpOption extends StringOption {
             throw new IllegalArgumentException("The help option doesn't accept a parameter!");
         }
         for (Option<?> option : options) {
-            System.out.println(option.toString() + "\t" + option.getDescription());
+            System.out.println(String.join(", ", option.getAliases()) + "\t" + option.getDescription());
         }
+        System.exit(0); // we don't need to parse anything else
         return null;
     }
 }
