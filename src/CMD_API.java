@@ -124,6 +124,8 @@ public class CMD_API {
             throw new IllegalArgumentException("The option \"" + token + "\" is not defined!");
         }
         else {  // a valid option has been parsed
+            if (parsedOptions.contains(option)) // 
+                throw new IllegalArgumentException("The option " + option + " appears more than once.");
             parsedOptions.add(option);
         }
         return option;
