@@ -51,6 +51,16 @@ public class CMD_API {
             options.put(alias, option); // put the same option under all of its aliases
         }
     }
+
+    /**
+     * Convenience method to add all options.
+     * @param options a sequence of options to be added
+     */
+    public void addOptions(Option<?>... options) {
+        for (Option<?> option : options) {
+            addOption(option);
+        }
+    }
     
     public <T> void removeOption(String alias) {
         //TODO?? search get aliases, remove all instances...
@@ -84,6 +94,11 @@ public class CMD_API {
             if (opt.isMandatory() && !parsedOptions.contains(opt)) {
                 throw new IllegalArgumentException("A mandatory option " + opt + " was not present in the CMD input.");
             }
+        }
+        //DEBUG
+        System.out.println("Parsed args: ");
+        for (Option<?> opt : parsedOptions) {
+            System.out.println(opt.getArgument());
         }
     }
 
