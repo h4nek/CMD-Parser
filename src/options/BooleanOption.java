@@ -14,14 +14,14 @@ public class BooleanOption extends Option<Boolean> {
     List<String> trueRepresentations;
     List<String> falseRepresentations;
 
-    BooleanOption(List<String> aliases, String description, boolean mandatory) {
+    public BooleanOption(List<String> aliases, String description, boolean mandatory) {
         super(aliases, description, mandatory);
         trueRepresentations = Arrays.asList("yes", "true", "1", "on");
         falseRepresentations = Arrays.asList("no", "false", "0", "off");
         argument = false;
     }
     
-    BooleanOption(List<String> aliases, String description, boolean mandatory, Boolean defaultValue) {
+    public BooleanOption(List<String> aliases, String description, boolean mandatory, Boolean defaultValue) {
         super(aliases, description, mandatory, defaultValue);
         trueRepresentations = Arrays.asList("yes", "true", "1", "on");
         falseRepresentations = Arrays.asList("no", "false", "0", "off");
