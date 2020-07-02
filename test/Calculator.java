@@ -24,10 +24,7 @@ public class Calculator {
         verboseOption.setFalseRepresentations(Collections.emptyList());
         
         CMD_API cmdApi = CMD_API.getInstance();
-        cmdApi.addOption(leftOperandOption);
-        cmdApi.addOption(rightOperandOption);
-        cmdApi.addOption(operatorOption);
-        cmdApi.addOption(verboseOption);
+        cmdApi.addOptions(leftOperandOption, rightOperandOption, operatorOption, verboseOption);
         
         cmdApi.startApp();
         
