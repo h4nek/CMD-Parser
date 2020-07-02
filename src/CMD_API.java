@@ -16,7 +16,7 @@ import java.util.*;
 public class CMD_API {
     /** A collection of all defined options, using their aliases as keys. */
     private HashMap<String, Option<?>> options;
-    private CMD_API cmdApi;
+    private static CMD_API cmdApi;
     private List<Option<?>> parsedOptions;
 
     private CMD_API() {
@@ -31,7 +31,7 @@ public class CMD_API {
     /**
      * Return the CMD_API object. (Realizing the Singleton pattern.)
      */
-    public CMD_API getCMD_API() {
+    public static CMD_API getInstance() {
         if (cmdApi == null) {
             cmdApi = new CMD_API();
         }
