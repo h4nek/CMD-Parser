@@ -89,6 +89,9 @@ public class CMD_API {
                 }
             }
         }
+        if (option != null) {   // we have a no-parameter option left
+            option.evaluate(null);
+        }
         // check the mandatory property compliance
         for (Option<?> opt : options.values()) {
             if (opt.isMandatory() && !parsedOptions.contains(opt)) {
