@@ -15,9 +15,9 @@ import java.util.*;
  */
 public class CMD_API {
     /** A collection of all defined options, using their aliases as keys. */
-    private HashMap<String, Option<?>> options;
+    private final HashMap<String, Option<?>> options;
     private static CMD_API cmdApi;
-    private List<Option<?>> parsedOptions;
+    private final List<Option<?>> parsedOptions;
 
     private CMD_API() {
         options = new HashMap<>();
@@ -79,6 +79,13 @@ public class CMD_API {
                 }
             }
         }
+        // check the mandatory property compliance
+        for (Option<?> opt : options.values()) {
+            if (opt.isMandatory() && !parsedOptions.contains(opt)) {
+                throw new IllegalArgumentException("A mandatory option (" + String.join(", ", opt.getAliases())
+                 + ") was not present in the CMD input.");
+            }
+        }
     }
 
     /**
@@ -94,6 +101,9 @@ public class CMD_API {
         Option<?> option = options.get(token);
         if (option == null) {
             throw new IllegalArgumentException("The option \"" + token + "\" is not defined!");
+        }
+        else {  // a valid option has been parsed
+            parsedOptions.add(option);
         }
         return option;
     }
