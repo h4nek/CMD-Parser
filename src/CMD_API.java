@@ -61,9 +61,18 @@ public class CMD_API {
             addOption(option);
         }
     }
-    
-    public <T> void removeOption(String alias) {
-        //TODO?? search get aliases, remove all instances...
+
+    /**
+     * Remove any unwanted option. (E.g. the predefined, reserved --help option.)
+     * @param alias
+     */
+    public void removeOption(String alias) {
+        Option<?> option = options.get(alias);
+        if (option == null) // the option for the given alias doesn't exist - do nothing
+            return;
+        for (String a : option.getAliases()) {  // remove all entries using option aliases
+            options.remove(a);
+        }
     }
 
     /**
