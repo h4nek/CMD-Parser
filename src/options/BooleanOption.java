@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * An option accepting a {@code Boolean} argument. The representation
  * A no-parameter version is supported - {@code true} if the option is present, {@code false} otherwise.
- * Enforcing no parameter can be achieved by providing empty lists of true/false representations.
+ * Enforcing no parameter can be achieved by providing empty lists of true/false representations and setting 
+ * {@link #parameterOptional} to {@code true}.
  */
 public class BooleanOption extends Option<Boolean> {
     List<String> trueRepresentations;
