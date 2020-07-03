@@ -23,7 +23,7 @@ public class HelpOption extends StringOption {
      * @param options a collection of all available options, used for printing
      */
     public HelpOption(Collection<Option<?>> options) {
-        this(Arrays.asList("-h", "--help"), "Displays all the present " + "options and their descriptions.", 
+        this(Arrays.asList("-h", "--help"), "Displays all existing options and their descriptions.", 
                 false, options);
     }
 

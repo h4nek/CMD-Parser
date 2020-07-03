@@ -10,10 +10,6 @@ public class StringOption extends Option<String> {
     public StringOption(List<String> aliases, String description, boolean mandatory) {
         super(aliases, description, mandatory);
     }
-    
-    public StringOption(List<String> aliases, String description, boolean mandatory, String defaultValue) {
-        super(aliases, description, mandatory, defaultValue);
-    }
 
     @Override
     protected String parse(String parameter) {

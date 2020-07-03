@@ -13,11 +13,6 @@ public class EnumOption<E extends Enum<E>> extends Option<Enum<E>>{
         this.enumType = enumType;
     }
 
-    public EnumOption(List<String> aliases, String description, boolean mandatory, Enum<E> defaultValue, Class<E> enumType) {
-        super(aliases, description, mandatory, defaultValue);
-        this.enumType = enumType;
-    }
-
     @Override
     protected Enum<E> parse(String parameter) {
         return Enum.valueOf(enumType, parameter);

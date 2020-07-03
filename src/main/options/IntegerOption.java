@@ -16,21 +16,14 @@ public class IntegerOption extends Option<Integer> {
         maxValue = Integer.MAX_VALUE;
 
     }
-    
-    public IntegerOption(List<String> aliases, String description, boolean mandatory, Integer defaultValue) {
-        super(aliases, description, mandatory, defaultValue);
-        minValue = Integer.MIN_VALUE;
-        maxValue = Integer.MAX_VALUE;
-    }
 
     /**
      * An {@link Option} with {@code Integer} argument and restrictions imposed on its value.
      * @param minValue minimum accepted argument value
      * @param maxValue maximum accepted argument value
      */
-    public IntegerOption(List<String> aliases, String description, boolean mandatory, Integer defaultValue, 
-                         Integer minValue, Integer maxValue) {
-        super(aliases, description, mandatory, defaultValue);
+    public IntegerOption(List<String> aliases, String description, boolean mandatory, Integer minValue, Integer maxValue) {
+        super(aliases, description, mandatory);
         this.minValue = minValue;
         this.maxValue = maxValue;
     }

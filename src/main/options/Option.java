@@ -36,14 +36,15 @@ public abstract class Option<T> {
     }
 
     /**
-     * Accepts a default value. See {@link #Option(List, String, boolean)}.
+     * Set a default parameter value. Applicable only for non-mandatory options with a mandatory parameter! (Otherwise 
+     * it's ignored.)
      * @param defaultValue default value of the option parameter, used when the option is not present in the CMD input.
-     *                     applicable only for options with a parameter
      */
-    public Option(List<String> aliases, String description, boolean mandatory, T defaultValue) {
-        this(aliases, description, mandatory);
-        if (!mandatory && !parameterOptional)
-            this.argument = defaultValue;
+    public void setDefaultValue(T defaultValue) {
+        if (mandatory || parameterOptional)
+            throw new UnsupportedOperationException("The class doesn't support setting a default value (is a mandatory" +
+                    " option or has an optional parameter).");
+        this.argument = defaultValue;
     }
 
     /**

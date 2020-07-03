@@ -19,15 +19,6 @@ public class BooleanOption extends Option<Boolean> {
         falseRepresentations = Arrays.asList("no", "false", "0", "off");
         argument = false;
     }
-    
-    public BooleanOption(List<String> aliases, String description, boolean mandatory, Boolean defaultValue) {
-        super(aliases, description, mandatory, defaultValue);
-        trueRepresentations = Arrays.asList("yes", "true", "1", "on");
-        falseRepresentations = Arrays.asList("no", "false", "0", "off");
-        if (defaultValue == null) { // works the same as if no defaultValue was supplied
-            argument = false;
-        }
-    }
 
     public void setTrueRepresentations(List<String> trueRepresentations) {
         if (trueRepresentations == null)
