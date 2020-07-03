@@ -1,8 +1,6 @@
 package options;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Prints the list of all the defined options (represented by aliases) and their descriptions.
@@ -34,7 +32,9 @@ public class HelpOption extends StringOption {
         if (parameter != null) {
             throw new IllegalArgumentException("The help option doesn't accept a parameter!");
         }
-        for (Option<?> option : options) {
+        
+        Set<Option<?>> optionSet = new HashSet<>(options);  // get a sub collection of distinct options
+        for (Option<?> option : optionSet) {
             System.out.println(String.join(", ", option.getAliases()) + "\t" + option.getDescription());
         }
         System.exit(0); // we don't need to parse anything else
