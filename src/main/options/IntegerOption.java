@@ -1,4 +1,4 @@
-package options;
+package main.options;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import java.util.List;
  */
 public class IntegerOption extends Option<Integer> {
     // used as restrictions
-    private Integer minValue;
-    private Integer maxValue;
+    private final Integer minValue;
+    private final Integer maxValue;
 
     public IntegerOption(List<String> aliases, String description, boolean mandatory) {
         super(aliases, description, mandatory);
@@ -36,12 +36,12 @@ public class IntegerOption extends Option<Integer> {
     }
 
     @Override
-    public Integer parse(String parameter) {
+    protected Integer parse(String parameter) {
         return Integer.valueOf(parameter);
     }
 
     @Override
-    boolean restrictionsSatisfaction() {
+    protected boolean restrictionsSatisfaction() {
         // check if the argument lies within the bounds
         return argument >= minValue && argument <= maxValue;
     }

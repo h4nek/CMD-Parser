@@ -1,4 +1,4 @@
-package options;
+package main.options;
 
 import java.util.List;
 
@@ -96,7 +96,7 @@ public abstract class Option<T> {
      *                  optional parameter)
      * @return the parsed option argument
      */
-    abstract T parse(String parameter);
+    protected abstract T parse(String parameter);
 
     /**
      * Check if the current argument passes the defined restrictions. A violation of some restriction triggers an 
@@ -112,14 +112,14 @@ public abstract class Option<T> {
      * Evaluate the argument's conformity to all restrictions. No restrictions by default.
      * @return {@code true} if the argument passes all restrictions, {@code false} if a restriction is violated
      */
-    boolean restrictionsSatisfaction() {
+    protected boolean restrictionsSatisfaction() {
         return true;
     }
 
     /**
      * A convenience method to raise an exception in the case of an invalid option argument.
      */
-    final void invalidArgument() {
+    protected final void invalidArgument() {
         throw new IllegalArgumentException("The received argument for option " + this + " is invalid!");
     }
 

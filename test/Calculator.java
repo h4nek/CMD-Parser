@@ -1,7 +1,7 @@
-import options.BooleanOption;
-import options.EnumOption;
-import options.IntegerOption;
-import options.Option;
+import main.CMD_API;
+import main.options.BooleanOption;
+import main.options.EnumOption;
+import main.options.IntegerOption;
 
 import java.util.Collections;
 

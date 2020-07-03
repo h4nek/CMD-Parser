@@ -1,4 +1,4 @@
-package options;
+package main.options;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class StringOption extends Option<String> {
     }
 
     @Override
-    public String parse(String parameter) {
+    protected String parse(String parameter) {
         return parameter;
     }
 

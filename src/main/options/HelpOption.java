@@ -1,4 +1,4 @@
-package options;
+package main.options;
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ public class HelpOption extends StringOption {
     /**
      * Store all available options.
      */
-    Collection<Option<?>> options;
+    private final Collection<Option<?>> options;
     
     private HelpOption(List<String> aliases, String description, boolean mandatory, Collection<Option<?>> options) {
         super(aliases, description, mandatory);
@@ -28,7 +28,7 @@ public class HelpOption extends StringOption {
     }
 
     @Override
-    public String parse(String parameter) {
+    protected String parse(String parameter) {
         if (parameter != null) {
             throw new IllegalArgumentException("The help option doesn't accept a parameter!");
         }

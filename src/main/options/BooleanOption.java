@@ -1,4 +1,4 @@
-package options;
+package main.options;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.List;
  * {@link #parameterOptional} to {@code true}.
  */
 public class BooleanOption extends Option<Boolean> {
-    List<String> trueRepresentations;
-    List<String> falseRepresentations;
+    private List<String> trueRepresentations;
+    private List<String> falseRepresentations;
 
     public BooleanOption(List<String> aliases, String description, boolean mandatory) {
         super(aliases, description, mandatory);
@@ -42,7 +42,7 @@ public class BooleanOption extends Option<Boolean> {
     }
 
     @Override
-    public Boolean parse(String parameter) {
+    protected Boolean parse(String parameter) {
         if (trueRepresentations.contains(parameter)) {
             return true;
         }

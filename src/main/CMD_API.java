@@ -1,5 +1,7 @@
-import options.HelpOption;
-import options.Option;
+package main;
+
+import main.options.HelpOption;
+import main.options.Option;
 
 import java.util.*;
 
